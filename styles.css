@@ -1,0 +1,461 @@
+/* =========================================================
+   8-BIT PORTFOLIO — base styles
+   ========================================================= */
+
+:root {
+  /* Pastel Night palette (default) */
+  --bg: #1a1a3a;
+  --bg-deep: #0e0e25;
+  --surface: #2a2a5a;
+  --surface-2: #3a3a7a;
+  --border: #f0a8d0;
+  --primary: #f0a8d0;     /* pink */
+  --secondary: #a890f0;   /* purple */
+  --accent: #78d8f8;      /* cyan */
+  --highlight: #fffba8;   /* yellow */
+  --text: #f8f8ff;
+  --text-dim: #9898d8;
+  --text-faded: #6868a8;
+  --good: #a8f0c0;
+  --bad: #ff6080;
+
+  --cabinet: #0a0a18;
+  --cabinet-rim: #2a2a4a;
+
+  --pixel: 4px;
+  --scanline-alpha: 0.18;
+  --scanline-on: 1;
+  --crt-glow: 0 0 24px rgba(168, 144, 240, 0.25), 0 0 60px rgba(120, 216, 248, 0.15);
+}
+
+[data-palette="nes"] {
+  --bg: #0a0a23;
+  --bg-deep: #050511;
+  --surface: #1a1a3d;
+  --surface-2: #29297a;
+  --border: #ff004d;
+  --primary: #ff004d;
+  --secondary: #ffec27;
+  --accent: #29adff;
+  --highlight: #ffec27;
+  --text: #fff1e8;
+  --text-dim: #c2c3c7;
+  --text-faded: #5f574f;
+  --good: #00e436;
+  --bad: #ff004d;
+}
+
+[data-palette="gameboy"] {
+  --bg: #0f380f;
+  --bg-deep: #081808;
+  --surface: #306230;
+  --surface-2: #4a8a4a;
+  --border: #9bbc0f;
+  --primary: #9bbc0f;
+  --secondary: #8bac0f;
+  --accent: #9bbc0f;
+  --highlight: #9bbc0f;
+  --text: #9bbc0f;
+  --text-dim: #8bac0f;
+  --text-faded: #306230;
+  --good: #9bbc0f;
+  --bad: #8bac0f;
+  --cabinet: #1a2818;
+  --cabinet-rim: #0f380f;
+}
+
+[data-palette="mono"] {
+  --bg: #1a1a1a;
+  --bg-deep: #0a0a0a;
+  --surface: #2a2a2a;
+  --surface-2: #4a4a4a;
+  --border: #e8e8e8;
+  --primary: #e8e8e8;
+  --secondary: #a0a0a0;
+  --accent: #ffffff;
+  --highlight: #ffffff;
+  --text: #f0f0f0;
+  --text-dim: #a0a0a0;
+  --text-faded: #606060;
+  --good: #d0d0d0;
+  --bad: #ffffff;
+}
+
+[data-palette="bubblegum"] {
+  --bg: #2b0f3a;
+  --bg-deep: #160620;
+  --surface: #4a1a5e;
+  --surface-2: #6a2a8a;
+  --border: #ff80c0;
+  --primary: #ff80c0;
+  --secondary: #ffc658;
+  --accent: #58ffd2;
+  --highlight: #ffc658;
+  --text: #ffe6f5;
+  --text-dim: #d090c0;
+  --text-faded: #804070;
+  --good: #58ffd2;
+  --bad: #ff5080;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--cabinet);
+  font-family: 'VT323', 'Courier New', monospace;
+  color: var(--text);
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  image-rendering: pixelated;
+  overflow: hidden;
+  user-select: none;
+  cursor: default;
+}
+
+.pixel { font-family: 'Press Start 2P', monospace; letter-spacing: 0; line-height: 1.4; }
+.mono { font-family: 'VT323', monospace; }
+
+/* ---------- CABINET / CRT SHELL ---------- */
+.cabinet {
+  position: fixed; inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(ellipse at center, var(--cabinet-rim) 0%, var(--cabinet) 70%);
+  padding: clamp(12px, 2vw, 32px);
+}
+
+.crt {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 16 / 10;
+  max-height: calc(100vh - 24px);
+  background: var(--bg-deep);
+  border: var(--pixel) solid var(--border);
+  box-shadow:
+    inset 0 0 0 var(--pixel) var(--bg),
+    var(--crt-glow);
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.crt::before {
+  /* scanlines */
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,0,0, var(--scanline-alpha)) 0px,
+    rgba(0,0,0, var(--scanline-alpha)) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  z-index: 50;
+  opacity: var(--scanline-on);
+  mix-blend-mode: multiply;
+}
+
+.crt::after {
+  /* subtle vignette */
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.5) 100%);
+  z-index: 51;
+}
+
+.screen {
+  position: absolute; inset: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- COMMON PIXEL CHROME ---------- */
+.box {
+  border: var(--pixel) solid var(--border);
+  background: var(--surface);
+  position: relative;
+}
+.box-inner {
+  border: 2px solid color-mix(in srgb, var(--border) 40%, transparent);
+  margin: 4px;
+  padding: 14px 16px;
+  height: calc(100% - 8px);
+}
+
+.panel-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  color: var(--highlight);
+  text-shadow: 2px 2px 0 var(--bg-deep);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* corner caps on dialog boxes */
+.win {
+  position: relative;
+  background: var(--surface);
+  border: var(--pixel) solid var(--border);
+  padding: 16px 18px;
+}
+.win::before, .win::after,
+.win > .c-tl, .win > .c-tr, .win > .c-bl, .win > .c-br {
+  content: "";
+  position: absolute;
+  width: 8px; height: 8px;
+  background: var(--bg);
+}
+.win::before { top: -4px; left: -4px; }
+.win::after  { top: -4px; right: -4px; }
+.win > .c-bl { bottom: -4px; left: -4px; }
+.win > .c-br { bottom: -4px; right: -4px; }
+
+/* Pixel arrow indicator */
+.arrow {
+  display: inline-block;
+  width: 0; height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 8px solid var(--highlight);
+  vertical-align: middle;
+}
+
+/* Menu item */
+.menu-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  color: var(--text);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: none;
+}
+.menu-item .glyph { font-size: 16px; line-height: 1; width: 18px; }
+.menu-item:hover, .menu-item.active {
+  background: var(--surface-2);
+  border-color: var(--highlight);
+  color: var(--highlight);
+}
+.menu-item.active .arrow-prefix {
+  visibility: visible;
+}
+.arrow-prefix { visibility: hidden; color: var(--highlight); }
+
+/* Body text */
+.body-text { font-family: 'VT323', monospace; font-size: 20px; line-height: 1.25; color: var(--text); }
+.body-text.dim { color: var(--text-dim); }
+.body-text.sm { font-size: 18px; }
+
+/* HP / XP bars */
+.bar {
+  height: 10px;
+  background: var(--bg-deep);
+  border: 2px solid var(--text-faded);
+  position: relative;
+  overflow: hidden;
+}
+.bar-fill { height: 100%; background: var(--accent); }
+.bar-fill.pink { background: var(--primary); }
+.bar-fill.purple { background: var(--secondary); }
+.bar-fill.yellow { background: var(--highlight); }
+.bar-fill.good { background: var(--good); }
+
+/* Badges/chips */
+.chip {
+  display: inline-block;
+  padding: 4px 8px 3px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  background: var(--bg-deep);
+  border: 2px solid var(--border);
+  color: var(--text);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.chip.pink { border-color: var(--primary); color: var(--primary); }
+.chip.cyan { border-color: var(--accent); color: var(--accent); }
+.chip.purple { border-color: var(--secondary); color: var(--secondary); }
+.chip.yellow { border-color: var(--highlight); color: var(--highlight); }
+
+/* Glowing key prompt */
+.kbd {
+  display: inline-block;
+  min-width: 20px;
+  padding: 3px 6px 2px;
+  background: var(--bg-deep);
+  border: 2px solid var(--text-dim);
+  color: var(--highlight);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Blinking cursor / hint */
+.blink { animation: blink 1.05s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Pulsing element */
+.pulse { animation: pulse 1.4s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+
+/* Floating CTAs */
+.title-press {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 16px;
+  color: var(--highlight);
+  letter-spacing: 2px;
+  text-shadow: 3px 3px 0 var(--bg-deep);
+}
+
+/* Avatar tile */
+.avatar {
+  width: 88px; height: 88px;
+  background: var(--bg-deep);
+  border: 3px solid var(--border);
+  display: grid; place-items: center;
+  position: relative;
+  flex-shrink: 0;
+}
+.avatar-lg { width: 128px; height: 128px; }
+
+/* Pixel hand cursor for clickables */
+button, .clickable, .menu-item { cursor: pointer; }
+button { all: unset; cursor: pointer; }
+
+/* Scrollbar styled to match */
+.scroll {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) var(--bg-deep);
+}
+.scroll::-webkit-scrollbar { width: 10px; }
+.scroll::-webkit-scrollbar-track { background: var(--bg-deep); }
+.scroll::-webkit-scrollbar-thumb { background: var(--border); border: 2px solid var(--bg-deep); }
+/* Prevent flex shrinking of children inside scrollable / column flex regions */
+.scroll > * { flex-shrink: 0; min-width: 0; }
+.win { flex-shrink: 0; }
+.box-inner > *:not(.grow):not([style*="flex: 1"]) { flex-shrink: 0; }
+
+/* Layout shorthands */
+.row { display: flex; gap: 12px; }
+.col { display: flex; flex-direction: column; gap: 12px; }
+.stack-2 { display: flex; flex-direction: column; gap: 8px; }
+.stack-4 { display: flex; flex-direction: column; gap: 16px; }
+.between { justify-content: space-between; }
+.center { align-items: center; }
+.grow { flex: 1; }
+.hide { display: none !important; }
+
+/* Section labels (small caps style) */
+.label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* Title screen flicker */
+@keyframes flicker {
+  0%, 92%, 100% { opacity: 1; }
+  93% { opacity: 0.6; }
+  95% { opacity: 1; }
+  97% { opacity: 0.4; }
+}
+.flicker { animation: flicker 6s infinite; }
+
+/* Float */
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+.floaty { animation: floaty 2.4s ease-in-out infinite; }
+
+/* Disabled */
+.disabled { opacity: 0.4; pointer-events: none; }
+
+/* Tweak swatch */
+.swatch {
+  width: 18px; height: 18px;
+  border: 2px solid var(--text);
+  background: var(--accent);
+}
+
+/* =========================================================
+   RESPONSIVE — collapse 2-col layouts on phones/tablets
+   ========================================================= */
+.r-split { /* desktop: keeps its inline grid */ }
+
+/* Slightly narrow screens: looser CRT */
+@media (max-width: 1024px) {
+  :root { --pixel: 3px; }
+  .body-text { font-size: 18px; }
+  .body-text.sm { font-size: 16px; }
+}
+
+/* Tablet / phone */
+@media (max-width: 800px) {
+  html, body { overflow: auto; }
+  .cabinet { padding: 0; min-height: 100vh; align-items: stretch; }
+  .crt {
+    aspect-ratio: auto;
+    max-height: none;
+    min-height: 100vh;
+    border-width: 0;
+    border-radius: 0;
+    width: 100%;
+    max-width: none;
+  }
+  .crt::after { display: none; }
+  .screen { position: relative; min-height: 100vh; }
+
+  /* Top-level 2-col splits become single-column scroll regions */
+  .r-split {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+    overflow-y: auto !important;
+    min-height: 0;
+    flex: 1 1 auto !important;
+    gap: 10px !important;
+  }
+  .r-split > .box { flex-shrink: 0; }
+
+  /* Inner 2-col card grids collapse to one column */
+  .r-grid-2 {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  /* HUD chip text shrinks */
+  .pixel { letter-spacing: 0; }
+  .panel-title { font-size: 10px; }
+  .label { font-size: 7px; }
+  .menu-item { font-size: 10px; padding: 8px 10px; }
+  .menu-item .body-text.sm { display: none; }
+
+  .box-inner { padding: 10px 12px; margin: 3px; }
+
+  /* HUD wraps cleanly */
+  .crt .screen > div:first-child {
+    padding: 6px 8px;
+  }
+
+  /* avatar smaller in main screens — handled inline via component size if needed */
+
+  /* tweaks panel narrower on mobile */
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+  .body-text { font-size: 16px; }
+  .body-text.sm { font-size: 14px; }
+  .pixel { font-size: 10px; }
+  .menu-item { font-size: 9px; }
+  .chip { font-size: 7px; padding: 3px 6px 2px; }
+  .kbd { font-size: 7px; }
+}

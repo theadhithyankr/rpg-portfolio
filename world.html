@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+  <title>ADHITHYAN K R · World Mode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="world.css" />
+
+  <template id="__bundler_thumbnail">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" fill="#3b6b3f" />
+      <rect x="20" y="20" width="60" height="60" fill="#a89878" />
+      <rect x="42" y="36" width="16" height="20" fill="#5a4632" />
+      <rect x="48" y="44" width="4" height="6" fill="#fffba8" />
+    </svg>
+  </template>
+</head>
+<body>
+  <div id="stage">
+    <canvas id="world-canvas"></canvas>
+
+    <!-- LOADING SCREEN with Breakout mini-game -->
+    <div id="loader">
+      <div id="loader-frame">
+        <div id="loader-head">
+          <div>
+            <div id="loader-title">ADHITH-VILLAGE</div>
+            <div id="loader-sub">SUMMONING THE WORLD...  BREAK BRICKS WHILE YOU WAIT.</div>
+          </div>
+          <div id="loader-pct">0%</div>
+        </div>
+        <div id="loader-bar-track"><div id="loader-bar"></div></div>
+        <canvas id="loader-canvas"></canvas>
+        <div id="loader-footer">
+          <div id="loader-status">MOVE: <span class="kbd-l">MOUSE</span> · <span class="kbd-l">←</span><span class="kbd-l">→</span> · TOUCH ·  LAUNCH: <span class="kbd-l">SPACE</span> / TAP</div>
+          <div id="loader-buttons">
+            <button id="loader-skip">▶ SKIP</button>
+            <button id="loader-continue">✓ CONTINUE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hud-top">
+      <div id="hud-left">
+        <div class="hud-pill"><span class="lbl">COIN</span><span id="hud-coins">◆ 0</span></div>
+        <div class="hud-pill"><span class="lbl">SKY</span><span id="hud-clock">☀ DAY</span></div>
+        <div class="hud-pill" id="hud-quest" style="display:none"></div>
+      </div>
+      <div id="hud-right">
+        <button class="hud-pill btn" id="sound-toggle">♪ SFX ON</button>
+        <button class="hud-pill btn" id="mode-menu">▦ MENU MODE</button>
+      </div>
+    </div>
+
+    <div id="interact-hint"></div>
+    <div id="toast"></div>
+
+    <div id="dpad">
+      <div class="dbtn" id="dpad-up">▲</div>
+      <div class="dbtn" id="dpad-left">◀</div>
+      <div class="dbtn" id="dpad-center"></div>
+      <div class="dbtn" id="dpad-right">▶</div>
+      <div class="dbtn" id="dpad-down">▼</div>
+    </div>
+
+    <div id="btn-action">E</div>
+
+    <div id="npc-chat-log"></div>
+    <div id="battle-log">
+      <div id="battle-log-header">
+        <span id="battle-log-title">⚔ BATTLE</span>
+        <button id="battle-log-close">✕</button>
+      </div>
+      <div id="battle-log-body"></div>
+    </div>
+
+    <div id="dialog">
+      <div id="dialog-head">
+        <div id="dialog-avatar"></div>
+        <div>
+          <div id="dialog-name">NPC</div>
+          <div id="dialog-tag"></div>
+        </div>
+        <button id="dialog-close">✕ CLOSE</button>
+      </div>
+      <div id="dialog-text"></div>
+      <div id="dialog-target-picker"></div>
+      <div id="dialog-input-row">
+        <input id="dialog-input" type="text" inputmode="text" placeholder="Type a message..." autocomplete="off" />
+        <button id="dialog-send">SEND ▶</button>
+        <button id="dialog-provoke">⚔ PROVOKE</button>
+      </div>
+      <div id="dialog-hints"></div>
+    </div>
+
+    <div id="building-sheet">
+      <div class="sheet-frame">
+        <div class="sheet-h">
+          <div id="sheet-title">BUILDING</div>
+          <button id="sheet-close">✕ EXIT</button>
+        </div>
+        <div id="sheet-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="sfx.js"></script>
+  <script src="data.js"></script>
+  <script src="world-data.js"></script>
+  <script src="world-interiors.js"></script>
+  <script src="world-engine.js"></script>
+  <script src="world-ui.js"></script>
+  <script src="loading.js"></script>
+</body>
+</html>
