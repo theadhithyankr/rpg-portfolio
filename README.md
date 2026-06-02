@@ -1,45 +1,34 @@
-# Adhithyan K R RPG Portfolio
+# RPG Portfolio
 
-## Overview
-OPW is a retro game-style interactive portfolio for Adhithyan K R. It presents resume content as a playable interface with title screens, character stats, skill panels, quests, records, contact screens, minigames, and an explorable world.
+Retro game-style interactive portfolio for Adhithyan K R, built with Vite, React scripts, minigames, and world exploration.
 
-## Features
-- CRT-inspired portfolio shell with keyboard-friendly title and menu flow.
-- Resume data organized into stats, skills, quests, items, records, and contact screens.
-- Minigame and world modules for a more interactive portfolio experience.
-- Tweak panel support for palette and sound preferences.
-- Vite-powered development and production builds.
+## Key Features
+- Retro game-style interactive portfolio for Adhithyan K R, built with Vite, React scripts, minigames, and world exploration
+- AI/service layer is separated into dedicated source files so prompts, model calls, and UI actions are easier to inspect.
+- Package scripts provide reproducible development, build, and preview commands.
 
 ## Tech Stack
-- JavaScript
-- React loaded through browser scripts
+- JavaScript/TypeScript
 - Vite
-- CSS
+- HTML/CSS
+- React
 
-## Development
-Install dependencies:
+## Project Structure
+- Key files: api/groq.js, index.html, package.json, vite.config.js.
 
+## Setup and Run
 ```bash
+git clone https://github.com/theadhithyankr/rpg-portfolio.git
+cd rpg-portfolio
 npm install
-```
-
-Start the development server:
-
-```bash
 npm run dev
-```
-
-Build for production:
-
-```bash
 npm run build
-```
-
-Preview the production build:
-
-```bash
 npm run preview
 ```
 
-## Status
-Private portfolio project with active game-style UI and world exploration files.
+## What This Project Demonstrates
+- Building user-facing web applications with component-based UI and modern frontend tooling.
+- Presenting project scope, setup, and technical choices clearly for reviewers and recruiters.
+
+## Repository
+- GitHub: https://github.com/theadhithyankr/rpg-portfolio
