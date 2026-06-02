@@ -1,4 +1,4 @@
-# OPW
+# Adhithyan K R RPG Portfolio
 
 ## Overview
 OPW is a retro game-style interactive portfolio for Adhithyan K R. It presents resume content as a playable interface with title screens, character stats, skill panels, quests, records, contact screens, minigames, and an explorable world.
