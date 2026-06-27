@@ -14,7 +14,7 @@ Role-playing inspired portfolio experience for presenting projects and skills.
 
 RPG Portfolio is a portfolio project in the TheAdhithyanKR/rpg-portfolio repository. Retro game-style interactive portfolio for Adhithyan K R, built with Vite, React scripts, minigames, and world exploration.
 
-The README was written from the repository contents, including its manifest files, source tree, and available project metadata. The primary manifest is $(@{Path=package.json; Json=}.Path), and the commands below are taken from its scripts.
+The README was written from the repository contents, including its manifest files, source tree, and available project metadata. The primary manifest is `package.json`, and the commands below are taken from its scripts.
 
 ## Key Features
 
