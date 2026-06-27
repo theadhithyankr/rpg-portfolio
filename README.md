@@ -14,7 +14,7 @@ Role-playing inspired portfolio experience for presenting projects and skills.
 
 RPG Portfolio is a portfolio project in the TheAdhithyanKR/rpg-portfolio repository. Retro game-style interactive portfolio for Adhithyan K R, built with Vite, React scripts, minigames, and world exploration.
 
-The README was written from the repository contents, including its manifest files, source tree, and available project metadata. The primary manifest is $(System.Collections.Hashtable.Path), and the commands below are taken from its scripts.
+The README was written from the repository contents, including its manifest files, source tree, and available project metadata. The primary manifest is $(@{Path=package.json; Json=}.Path), and the commands below are taken from its scripts.
 
 ## Key Features
 
@@ -29,7 +29,7 @@ The README was written from the repository contents, including its manifest file
 
 ## Project Structure
 
-`	ext
+```text
 .
 |-- .env.example
 |-- api/groq.js
@@ -55,14 +55,14 @@ The README was written from the repository contents, including its manifest file
 |-- uploads/pasted-1779813563283-0.png
 |-- uploads/pasted-1779814801499-0.png
 |-- vercel.json
-`
+```
 
 ## Setup
 
-`ash
+```bash
 npm install
 npm run dev
-`
+```
 
 ## What This Project Demonstrates
 
